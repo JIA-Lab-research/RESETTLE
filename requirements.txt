@@ -1,0 +1,13 @@
+torch>=2.6
+torchvision
+numpy
+scipy
+PyYAML
+av
+decord
+pandas
+pyarrow
+Pillow
+opencv-python-headless
+timm
+einops

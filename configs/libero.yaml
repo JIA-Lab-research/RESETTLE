@@ -1,0 +1,107 @@
+app: vjepa_intent_action
+cpus_per_task: 8
+folder: ./outputs
+mem_per_gpu: 120G
+nodes: 1
+tasks_per_node: 8
+data:
+  batch_size: 1
+  camera_views: [observation.images.image]
+  crop_size: 256
+  dataset_type: libero_lerobot
+  datasets:
+  - ./data/libero_object_no_noops_1.0.0_lerobot
+  - ./data/libero_goal_no_noops_1.0.0_lerobot
+  - ./data/libero_spatial_no_noops_1.0.0_lerobot
+  - ./data/libero_10_no_noops_1.0.0_lerobot
+  dataset_fpcs: [8]
+  fps: 4
+  num_workers: 4
+  patch_size: 16
+  persistent_workers: true
+  pin_mem: true
+  stereo_view: false
+  tubelet_size: 2
+data_aug:
+  auto_augment: false
+  horizontal_flip: false
+  motion_shift: false
+  random_resize_aspect_ratio: [0.9, 1.1]
+  random_resize_scale: [0.8, 1.0]
+  reprob: 0.0
+loss:
+  normalize_reps: true
+meta:
+  context_encoder_key: encoder
+  dtype: bfloat16
+  eval_freq: 1
+  load_encoder: true
+  load_predictor: true
+  pretrain_checkpoint: ./weights/vjepa2-ac-vitg.pt
+  resume_checkpoint: null
+  save_every_freq: 5
+  seed: 239
+  skip_batches: -1
+  sync_gc: false
+  target_encoder_key: target_encoder
+  use_sdpa: true
+model:
+  compile_model: false
+  model_name: vit_giant_xformers
+  predictor_max_num_frames: 512
+  pred_depth: 24
+  pred_embed_dim: 1024
+  pred_is_frame_causal: true
+  pred_num_heads: 16
+  uniform_power: true
+  use_activation_checkpointing: true
+  use_extrinsics: false
+  use_rope: true
+intent_action:
+  action_parameterization: state_servo_residual
+  state_servo_prior: state_goal_delta_guarded_single_tick_v7
+  condition_on_state_servo_prior: true
+  residual_execution_mode: guarded_single_tick
+  residual_representation: executed_correction
+  chunk_size: 1
+  goal_frame_index: 4
+  guarded_native_steps: 5
+  meters_per_native_command: [0.010465, 0.012178, 0.010764]
+  rotation_gain_matrix:
+  - [0.054518035038240854, 0.00031475904749521605, -0.001432736599681916]
+  - [-0.000046604232566503954, 0.03732977675531852, -0.000037339221850971956]
+  - [-0.003208055904646154, 0.00041903158757938374, 0.045218770064597354]
+  max_translation_delta: 0.03
+  max_rotation_delta: 0.05
+  max_native_command: 1.0
+  min_translation_cosine: 0.5
+  min_rotation_cosine: 0.0
+  max_correction_ratio: 0.5
+  condition_dim: 128
+  depth: 3
+  dropout: 0.0
+  hidden_dim: 1024
+  max_log_std: 2.0
+  min_log_std: -5.0
+  train_fraction: 0.9
+  use_local_intent: false
+  val_fraction: 0.1
+optimization:
+  epochs: 20
+  final_lr: 1.0e-05
+  ipe: 1000
+  lr: 1.0e-04
+  start_lr: 1.0e-05
+  warmup: 2
+  weight_decay: 0.04
+  train_context_encoder: true
+  context_encoder_lr_scale: 0.1
+  target_encoder_ema: [0.996, 0.9999]
+  train_predictor: true
+  predictor_lr_scale: 0.1
+  dynamics_loss_weight: 1.0
+  dynamics_loss_exp: 1.0
+  goal_consistency_loss_weight: 0.0
+  native_action_loss_weight: 1.0
+  guard_loss_weight: 0.1
+  saturation_loss_weight: 0.05
