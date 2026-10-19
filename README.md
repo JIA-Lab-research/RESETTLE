@@ -1,8 +1,8 @@
 # RESETTLE
 
-LIBERO-only V-JEPA2-AC training, expert goal-bank encoding and HTTP recovery for guarded single-tick (K=1) state-servo plus visual residual. This repository contains source code, not datasets, pretrained weights or trained checkpoints. See [LICENSE](LICENSE) and [APACHE-LICENSE](APACHE-LICENSE) for the upstream code licenses.
+V-JEPA2-AC training, expert goal-bank encoding and HTTP recovery for guarded single-tick (K=1) state-servo plus visual residual.
 
-## From the paper
+## Method
 
 ![RESETTLE framework: disagreement trigger, V-JEPA retrieval and reference-guided recovery](assets/method.png)
 
@@ -68,7 +68,3 @@ The server deliberately stops before physical execution. [GUARDED_EXECUTOR.md](G
 | Prior and action | Both training and server use SO(3) fractional state-servo `D/5` and a learned K=1 residual. State is LIBERO's 7D XYZ/Euler/closedness convention, not raw LeRobot 8D observation state. |
 
 Training applies image augmentation to 8-frame clips; bank and server encode individual frames as repeated tubelets with deterministic preprocessing. This is the original inference convention, **not** proof of identical train/inference feature distributions. Guard/native losses during training encourage suitable corrections, but the server does not execute the downstream native command clipping, direction or ratio guard. The optional [guarded executor example](GUARDED_EXECUTOR.md) computes these from the verified `/health` calibration; it does not trigger interventions or step a robot. Do not treat the raw HTTP action or the two-seed samples as safe to apply directly. Two seeds sample one K=1 Gaussian residual at a fixed observation/goal, not a temporal two-step chunk and not independently trained policies.
-
-The paper's LIBERO executor masks corrections to the six motion coordinates and leaves the gripper on the servo prior; this server currently reports the raw **seven-dimensional** head residual, including its gripper component. The optional executor example applies that mask and native guard, but full end-to-end recovery still requires a base-policy trigger, simulator/robot integration and re-observation.
-
-For a local CPU-only schema check, run `"$PYTHON" -m unittest discover -s tests -v`. Full training, video encoding, model loading and guarded execution require the actual data, weights and GPUs; the CPU test cannot establish their end-to-end success.
