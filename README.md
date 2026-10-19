@@ -6,7 +6,7 @@ V-JEPA2-AC training, expert goal-bank encoding and HTTP recovery for guarded sin
 
 ![RESETTLE framework: disagreement trigger, V-JEPA retrieval and reference-guided recovery](assets/method.png)
 
-*Paper method overview.* Two independently sampled **base-policy** action chunks under identical conditioning are compared at successive decisions; a persistent, calibrated disagreement triggers same-task demonstration retrieval. The retrieved image and state guide a state-servo prior and visual correction for one native action, after which the base policy resumes. This repository covers the **LIBERO training, expert bank and recovery server** shown on the right; it does not include the paper's base-policy trigger, P95 calibration, native guard/executor or other embodiments. The server returns a proposed correction, not the guarded native action in the figure.
+*Paper method overview.* Two independently sampled **base-policy** action chunks under identical conditioning are compared at successive decisions; a persistent, calibrated disagreement triggers same-task demonstration retrieval. The retrieved image and state guide a state-servo prior and visual correction for one native action, after which the base policy resumes. This repository covers the **LIBERO training, expert bank and recovery server** shown on the right.
 
 ![QwenPI action-disagreement distribution on LIBERO-Plus under layout and robot-initialization perturbations](assets/action_disagreement.png)
 
