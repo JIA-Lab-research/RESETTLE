@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 : "${LIBERO_DATA_ROOT:?Set LIBERO_DATA_ROOT to the directory containing the four LeRobot suites}"
 : "${VJEPA_PRETRAIN:?Set VJEPA_PRETRAIN to the V-JEPA2-AC checkpoint}"
 : "${RESETTLE_OUTPUT:?Set RESETTLE_OUTPUT to the checkpoint output directory}"

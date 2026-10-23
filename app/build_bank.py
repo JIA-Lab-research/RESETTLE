@@ -27,7 +27,7 @@ def encode_suite(args):
     import torch.nn.functional as F
 
     from app.vjepa_droid.transforms import make_transforms
-    from libero_bank_utils import canonical_task, convert_states
+    from src.recovery.libero_bank_utils import canonical_task, convert_states
     from src.models.vision_transformer import vit_giant_xformers
 
     device = torch.device(args.device)

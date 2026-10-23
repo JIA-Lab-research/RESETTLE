@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 : "${RESETTLE_CHECKPOINT:?Set RESETTLE_CHECKPOINT to the guarded K=1 latest.pt}"
 : "${LIBERO_DATA_ROOT:?Set LIBERO_DATA_ROOT to the four-suite LeRobot parent directory}"
 : "${RESETTLE_BANK:?Set RESETTLE_BANK to the goal-bank output directory}"
@@ -48,7 +48,7 @@ for rank in 0 1 2 3; do
     suite="${suites[rank]}"
     output="$RESETTLE_BANK/libero_${suite}"
     (
-        CUDA_VISIBLE_DEVICES="$rank" "$PYTHON" -u build_bank.py \
+        CUDA_VISIBLE_DEVICES="$rank" "$PYTHON" -u -m app.build_bank \
             --data-root "$LIBERO_DATA_ROOT" --suite "$suite" \
             --checkpoint "$RESETTLE_CHECKPOINT" --output-dir "$output" \
             --device cuda:0 --batch-size "$BATCH_SIZE"
@@ -61,4 +61,4 @@ for pid in "${pids[@]}"; do
     wait "$pid" || status=1
 done
 (( status == 0 )) || { echo "Bank encoding failed; inspect $RESETTLE_BANK/worker-*.log" >&2; exit 1; }
-"$PYTHON" build_bank.py --output-dir "$RESETTLE_BANK" --checkpoint "$RESETTLE_CHECKPOINT" --merge
+"$PYTHON" -m app.build_bank --output-dir "$RESETTLE_BANK" --checkpoint "$RESETTLE_CHECKPOINT" --merge

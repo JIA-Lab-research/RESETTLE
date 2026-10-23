@@ -21,9 +21,9 @@ import av
 from decord import VideoReader, cpu
 from scipy.spatial.transform import Rotation
 
-from libero_bank_utils import canonical_task
+from src.recovery.libero_bank_utils import canonical_task
 from app.vjepa_intent_action.model import PooledGaussianIntentActionHead
-from recovery_models import encode_frame, load_models
+from src.recovery.models import encode_frame, load_models
 from app.vjepa_droid.transforms import make_transforms
 
 
@@ -31,7 +31,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--checkpoint", required=True)
     parser.add_argument("--bank-dir", required=True, type=Path)
-    parser.add_argument("--intent-config", type=Path, default=Path(__file__).parent / "configs/libero.yaml")
+    parser.add_argument("--intent-config", type=Path, default=Path(__file__).resolve().parents[1] / "configs/libero.yaml")
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=18082)
     parser.add_argument("--device", default="cuda:0")

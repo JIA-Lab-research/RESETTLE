@@ -6,9 +6,9 @@ from types import SimpleNamespace
 
 import numpy as np
 
-from build_bank import merge
-from guarded_executor import guarded_action
-from two_seed_disagreement import sample_two_chunks
+from app.build_bank import merge
+from src.recovery.guarded_executor import guarded_action
+from examples.two_seed_disagreement import sample_two_chunks
 
 
 class MergeTest(unittest.TestCase):
@@ -107,7 +107,7 @@ class ContractTest(unittest.TestCase):
         import torch
 
         from app.vjepa_intent_action.train import _state_servo_prior
-        from vjepa_recovery_service import RecoveryEngine
+        from app.recovery_server import RecoveryEngine
 
         current = np.array([0.2, -0.1, 0.3, 0.1, -0.2, 0.3, 0.4], dtype=np.float32)
         goal = np.array([0.3, -0.2, 0.4, -0.1, 0.15, 0.5, 0.9], dtype=np.float32)
