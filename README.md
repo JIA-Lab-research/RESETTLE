@@ -9,9 +9,6 @@
 
 <p align="center">
   <a href="https://arxiv.org/pdf/2610.12185"><img src="https://img.shields.io/badge/Paper-arXiv%3A2610.12185-b31b1b?style=flat-square" alt="Paper: arXiv 2610.12185"></a>
-  <a href="#demo"><img src="https://img.shields.io/badge/Video-Demo-2563eb?style=flat-square" alt="Demo video"></a>
-  <a href="https://github.com/JIA-Lab-research/RESETTLE"><img src="https://img.shields.io/badge/Code-available-brightgreen?style=flat-square" alt="Code available"></a>
-  <a href="#citation"><img src="https://img.shields.io/badge/Citation-BibTeX-6f42c1?style=flat-square" alt="BibTeX citation"></a>
 </p>
 
 <p align="center">
@@ -30,7 +27,7 @@
 https://github.com/user-attachments/assets/195cb46d-e280-44ca-8fac-e4bbd69da30f
 
 <p align="center">
-  <a href="https://github.com/JIA-Lab-research/RESETTLE/raw/refs/heads/main/assets/RESETTLE_demo.mp4"><strong>📥 Download the full-resolution video</strong></a>
+  <a href="https://github.com/JIA-Lab-research/RESETTLE/raw/refs/heads/main/assets/RESETTLE_demo.mp4"></a>
 </p>
 
 <a id="overview"></a>
@@ -152,9 +149,6 @@ bash scripts/build_bank.sh
 ```
 
 The output contains `success_id_bank.npz` (`features [N,D]`, `states [N,7]`), `success_id_bank.jsonl`, and `success_id_bank_summary.json`. Expert video paths in JSONL remain external and must still exist when the server retrieves a goal.
-
-> [!IMPORTANT]
-> Bank encoding and recovery inference must use the **same trained checkpoint**, not the initial `VJEPA_PRETRAIN` weights. The four shards record its SHA-256; merging rejects mixed checkpoints or missing tasks, and the server verifies the bank/checkpoint match.
 
 ### 3. 🌐 Start the Recovery Server
 
