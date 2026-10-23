@@ -9,6 +9,7 @@
 
 <p align="center">
   <a href="https://arxiv.org/pdf/2610.12185"><img src="https://img.shields.io/badge/Paper-arXiv%3A2610.12185-b31b1b?style=flat-square" alt="Paper: arXiv 2610.12185"></a>
+  <a href="https://resettle-robotics.github.io/"><img src="https://img.shields.io/badge/Project%20Page-256b55?style=flat-square" alt="Project Page"></a>
 </p>
 
 <p align="center">
